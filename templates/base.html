@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diamond Lingerie | B2B Portal</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
@@ -17,28 +17,28 @@
             <a href="{{ url_for('dashboard') }}" class="text-logo">DIAMOND <span>LINGERIE</span></a>
         </div>
 
-        <div class="menu-toggle" id="mobile-menu">
+        <div class="menu-toggle" id="mobile-menu-btn">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
-        {% if session.get('user_id') %}
-        <div class="nav-links" id="nav-links">
+        <div class="nav-links" id="nav-menu">
+            {% if session.get('user_id') %}
             <a href="{{ url_for('dashboard') }}">Tüm Koleksiyon</a>
             <a href="{{ url_for('cart') }}">Sepetim
                 {% if cart_count > 0 %}
-                <span
-                    style="background: var(--gold); color: black; padding: 2px 6px; border-radius: 50%; font-weight: bold; font-size: 0.8rem; margin-left: 5px;">{{
-                    cart_count }}</span>
+                <span class="cart-badge">{{ cart_count }}</span>
                 {% endif %}
             </a>
             {% if session.get('is_admin') %}
             <a href="{{ url_for('admin') }}">Admin Paneli</a>
             {% endif %}
             <a href="{{ url_for('logout') }}" class="btn btn-outline">Çıkış Yap</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Giriş Yap</a>
+            {% endif %}
         </div>
-        {% endif %}
     </nav>
 
     <div class="container">
@@ -71,18 +71,20 @@
     </footer>
 
     <script>
+        // MOBİL MENÜ TIKLAMA MANTIĞI
         document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = document.getElementById('nav-links');
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const navMenu = document.getElementById('nav-menu');
 
-            if (mobileMenu && navLinks) {
-                mobileMenu.addEventListener('click', (e) => {
-                    // Tıklamayı algıla ve 'active' sınıfını ekle/çıkar
-                    navLinks.classList.toggle('active');
+            if (menuBtn && navMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Tıklamanın dışarı taşmasını engelle
+                    navMenu.classList.toggle('active');
+                    menuBtn.classList.toggle('is-open');
 
-                    // Hamburger animasyonu (Çizgilerin çarpı olması)
-                    const spans = mobileMenu.querySelectorAll('span');
-                    if (navLinks.classList.contains('active')) {
+                    // Hamburger Çizgi Animasyonu
+                    const spans = menuBtn.querySelectorAll('span');
+                    if (navMenu.classList.contains('active')) {
                         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
                         spans[1].style.opacity = '0';
                         spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
@@ -92,6 +94,21 @@
                         spans[2].style.transform = 'none';
                     }
                 });
+
+                // Menü açıkken dışarı tıklanırsa kapat
+                document.addEventListener('click', (e) => {
+                    if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && e.target !== menuBtn) {
+                        navMenu.classList.remove('active');
+                        menuBtn.classList.remove('is-open');
+                        const spans = menuBtn.querySelectorAll('span');
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
             }
         });
     </script>
+</body>
+
+</html>
