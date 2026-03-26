@@ -961,3 +961,37 @@ input:focus {
         width: 80%;
     }
 }
+
+/* --- TELEFON DİK KONUM (PORTRAIT) DÜZELTMESİ --- */
+@media screen and (max-width: 768px) {
+
+    /* 1. Navbar'ın yüksekliğini sabitle ve içeriği aşağı it */
+    .navbar {
+        height: 70px !important;
+        /* Standart bir yükseklik */
+        padding: 0 5% !important;
+        position: fixed !important;
+        /* Üstte çakılı kalsın */
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #000 !important;
+        z-index: 9999;
+    }
+
+    /* 2. Tüm sayfayı Navbar boyutu kadar aşağı kaydır (Görünmeyen kısmı kurtarır) */
+    body {
+        padding-top: 70px !important;
+    }
+
+    /* 3. Dashboard başlığının (Tüm Koleksiyon) Navbar'ın altında kalmasını engelle */
+    .container {
+        padding-top: 2rem !important;
+    }
+
+    /* 4. Logonun boyutunu telefona göre bir tık küçült (Sığmama sorunu için) */
+    .text-logo {
+        font-size: 1.5rem !important;
+        letter-spacing: 2px !important;
+    }
+}
