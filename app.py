@@ -162,7 +162,9 @@ def admin():
 
 @app.route('/delete_product/<int:id>', methods=['POST'])
 def delete_product(id):
-    if not session.get('is_admin'): return redirect(url_for('login'))
+    if not session.get('is_admin'):
+        flash('Bu işlem için yetkiniz yok.', 'error')
+        return redirect(url_for('dashboard'))
     conn = get_db_connection()
     conn.execute('DELETE FROM products WHERE id = ?', (id,))
     conn.commit()
@@ -172,7 +174,9 @@ def delete_product(id):
 
 @app.route('/edit_product/<int:id>', methods=['GET', 'POST'])
 def edit_product(id):
-    if not session.get('is_admin'): return redirect(url_for('login'))
+    if not session.get('is_admin'):
+        flash('Bu işlem için yetkiniz yok.', 'error')
+        return redirect(url_for('dashboard'))
     conn = get_db_connection()
     product = conn.execute('SELECT * FROM products WHERE id = ?', (id,)).fetchone()
     

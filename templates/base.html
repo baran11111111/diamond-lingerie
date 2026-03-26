@@ -12,8 +12,15 @@
         <div class="logo">
             <a href="{{ url_for('dashboard') }}" class="text-logo">DIAMOND <span>LINGERIE</span></a>
         </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         {% if session.get('user_id') %}
-        <div class="nav-links">
+        <div class="nav-links" id="nav-links">
             <a href="{{ url_for('dashboard') }}">Tüm Koleksiyon</a>
             <a href="{{ url_for('cart') }}">Sepetim 
                 {% if cart_count > 0 %}
@@ -55,5 +62,28 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            if(mobileMenu && navLinks) {
+                mobileMenu.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    // Simple animation for the bars
+                    const spans = mobileMenu.querySelectorAll('span');
+                    if(navLinks.classList.contains('active')) {
+                        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                        spans[1].style.opacity = '0';
+                        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+                    } else {
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -877,3 +877,87 @@ input:focus {
         width: 100% !important;
     }
 }
+
+/* ============================================================
+   KRİTİK MOBİL MENÜ VE NAVİGASYON DÜZENLEMESİ (PC'Yİ BOZMAZ)
+   ============================================================ */
+@media screen and (max-width: 768px) {
+
+    /* Navbar'ı mobilde hizala */
+    .navbar {
+        padding: 1rem 5% !important;
+        position: sticky !important;
+        top: 0;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    /* Hamburger Menü Çizgilerini Görünür Yap */
+    .menu-toggle {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        cursor: pointer;
+        z-index: 1001;
+        order: 2;
+        /* Logodan sonra sağa al */
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: var(--gold);
+        /* Altın sarısı çizgiler */
+        transition: all 0.3s ease;
+    }
+
+    /* Menü Linklerini Mobilde Panelleştir */
+    .nav-links {
+        display: none;
+        /* Başta gizli */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(5, 5, 5, 0.98);
+        /* Tam siyah cam efekti */
+        backdrop-filter: blur(15px);
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* JavaScript 'active' dediğinde menüyü göster */
+    .nav-links.active {
+        display: flex !important;
+    }
+
+    .nav-links a {
+        margin: 1.5rem 0 !important;
+        font-size: 1.4rem !important;
+        letter-spacing: 3px !important;
+        color: #fff !important;
+    }
+
+    /* Sepet Sayısı Baloncuğu (Badge) Mobilde Parlasın */
+    .nav-links a span {
+        background: var(--gold) !important;
+        color: #000 !important;
+        padding: 4px 10px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Buton Stilini Mobilde Panele Uydur */
+    .nav-links .btn-outline {
+        margin-top: 2rem !important;
+        width: 80%;
+    }
+}
