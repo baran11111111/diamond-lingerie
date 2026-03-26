@@ -879,165 +879,42 @@ input:focus {
 }
 
 /* ============================================================
-   KRİTİK MOBİL MENÜ VE NAVİGASYON DÜZENLEMESİ (PC'Yİ BOZMAZ)
+   KESİN ÇÖZÜM: MOBİL NAVBAR SIĞDIRMA
    ============================================================ */
 @media screen and (max-width: 768px) {
 
-    /* Navbar'ı mobilde hizala */
+    /* Navbar'ın dışarı taşmasını engelle ve hizala */
     .navbar {
-        padding: 1rem 5% !important;
-        position: sticky !important;
-        top: 0;
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
+        padding: 0 15px !important;
+        /* Kenar boşluğunu azalttık */
+        height: 60px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    /* Hamburger Menü Çizgilerini Görünür Yap */
+    /* Logoyu telefonda küçült ki sağ tarafa yer kalsın */
+    .text-logo {
+        font-size: 1.2rem !important;
+        /* Logoyu küçülttük */
+        letter-spacing: 2px !important;
+        white-space: nowrap !important;
+        flex-shrink: 1 !important;
+    }
+
+    /* "LINGERIE" yazısını mobilde çok sıkışırsa gizle veya küçült */
+    .text-logo span {
+        font-size: 0.9rem !important;
+        margin-left: 5px !important;
+    }
+
+    /* Hamburger Menü Butonunu Sabitle */
     .menu-toggle {
         display: flex !important;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 21px;
-        cursor: pointer;
-        z-index: 1001;
-        order: 2;
-        /* Logodan sonra sağa al */
-    }
-
-    .menu-toggle span {
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: var(--gold);
-        /* Altın sarısı çizgiler */
-        transition: all 0.3s ease;
-    }
-
-    /* Menü Linklerini Mobilde Panelleştir */
-    .nav-links {
-        display: none;
-        /* Başta gizli */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(5, 5, 5, 0.98);
-        /* Tam siyah cam efekti */
-        backdrop-filter: blur(15px);
-        flex-direction: column !important;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* JavaScript 'active' dediğinde menüyü göster */
-    .nav-links.active {
-        display: flex !important;
-    }
-
-    .nav-links a {
-        margin: 1.5rem 0 !important;
-        font-size: 1.4rem !important;
-        letter-spacing: 3px !important;
-        color: #fff !important;
-    }
-
-    /* Sepet Sayısı Baloncuğu (Badge) Mobilde Parlasın */
-    .nav-links a span {
-        background: var(--gold) !important;
-        color: #000 !important;
-        padding: 4px 10px !important;
-        font-size: 0.9rem !important;
-    }
-
-    /* Buton Stilini Mobilde Panele Uydur */
-    .nav-links .btn-outline {
-        margin-top: 2rem !important;
-        width: 80%;
-    }
-}
-
-/* --- TELEFON DİK KONUM (PORTRAIT) DÜZELTMESİ --- */
-@media screen and (max-width: 768px) {
-
-    /* 1. Navbar'ın yüksekliğini sabitle ve içeriği aşağı it */
-    .navbar {
-        height: 70px !important;
-        /* Standart bir yükseklik */
-        padding: 0 5% !important;
-        position: fixed !important;
-        /* Üstte çakılı kalsın */
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #000 !important;
-        z-index: 9999;
-    }
-
-    /* 2. Tüm sayfayı Navbar boyutu kadar aşağı kaydır (Görünmeyen kısmı kurtarır) */
-    body {
-        padding-top: 70px !important;
-    }
-
-    /* 3. Dashboard başlığının (Tüm Koleksiyon) Navbar'ın altında kalmasını engelle */
-    .container {
-        padding-top: 2rem !important;
-    }
-
-    /* 4. Logonun boyutunu telefona göre bir tık küçült (Sığmama sorunu için) */
-    .text-logo {
-        font-size: 1.5rem !important;
-        letter-spacing: 2px !important;
-    }
-}
-
-/* ============================================================
-   SAĞ ÜST KISIM SIĞDIRMA VE TAŞMA ENGELLEME (KESİN ÇÖZÜM)
-   ============================================================ */
-@media screen and (max-width: 768px) {
-
-    /* 1. Navbar'ın dışarı taşmasını engelle */
-    .navbar {
-        padding: 0 10px !important;
-        /* Kenar boşluklarını iyice kıstık */
-        gap: 5px !important;
-        overflow: hidden !important;
-    }
-
-    /* 2. Logoyu iyice küçült ki sağ tarafa yer kalsın */
-    .text-logo {
-        font-size: 1.1rem !important;
-        letter-spacing: 1px !important;
-        min-width: fit-content;
-    }
-
-    .text-logo span {
-        display: none;
-        /* Mobilde sadece 'DIAMOND' yazsın, 'LINGERIE' kısmını gizle */
-    }
-
-    /* 3. Sağ taraftaki linkleri ve sepet sayısını sıkıştır */
-    .nav-links {
-        gap: 10px !important;
-        /* Linklerin arasındaki boşluğu azalttık */
-    }
-
-    .nav-links a {
-        font-size: 0.75rem !important;
-        /* Yazı boyutunu küçülttük */
-        margin-left: 10px !important;
-        white-space: nowrap;
-        /* Yazıların alt alta binmesini engeller */
-    }
-
-    /* 4. Sepet Baloncuğunu (Badge) küçült */
-    .nav-links a span {
-        padding: 1px 5px !important;
-        font-size: 0.7rem !important;
+        margin-left: auto !important;
+        /* Logodan sonra en sağa it */
+        min-width: 30px;
     }
 }
