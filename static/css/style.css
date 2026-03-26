@@ -995,3 +995,49 @@ input:focus {
         letter-spacing: 2px !important;
     }
 }
+
+/* ============================================================
+   SAĞ ÜST KISIM SIĞDIRMA VE TAŞMA ENGELLEME (KESİN ÇÖZÜM)
+   ============================================================ */
+@media screen and (max-width: 768px) {
+
+    /* 1. Navbar'ın dışarı taşmasını engelle */
+    .navbar {
+        padding: 0 10px !important;
+        /* Kenar boşluklarını iyice kıstık */
+        gap: 5px !important;
+        overflow: hidden !important;
+    }
+
+    /* 2. Logoyu iyice küçült ki sağ tarafa yer kalsın */
+    .text-logo {
+        font-size: 1.1rem !important;
+        letter-spacing: 1px !important;
+        min-width: fit-content;
+    }
+
+    .text-logo span {
+        display: none;
+        /* Mobilde sadece 'DIAMOND' yazsın, 'LINGERIE' kısmını gizle */
+    }
+
+    /* 3. Sağ taraftaki linkleri ve sepet sayısını sıkıştır */
+    .nav-links {
+        gap: 10px !important;
+        /* Linklerin arasındaki boşluğu azalttık */
+    }
+
+    .nav-links a {
+        font-size: 0.75rem !important;
+        /* Yazı boyutunu küçülttük */
+        margin-left: 10px !important;
+        white-space: nowrap;
+        /* Yazıların alt alta binmesini engeller */
+    }
+
+    /* 4. Sepet Baloncuğunu (Badge) küçült */
+    .nav-links a span {
+        padding: 1px 5px !important;
+        font-size: 0.7rem !important;
+    }
+}
