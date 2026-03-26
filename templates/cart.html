@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="cart-wrapper">
+    <div class="cart-items glass-panel">
+        <h2>Toptan Sepetiniz</h2>
+        {% if cart_items %}
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Birim Fiyat</th>
+                        <th>Seri Fiyatı</th>
+                        <th>Seri Adedi</th>
+                        <th>Toplam</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <div class="cart-product-info">
+                                <img src="{% if item.product.image_url.startswith('http') %}{{ item.product.image_url }}{% else %}{{ url_for('static', filename=item.product.image_url) }}{% endif %}" alt="{{ item.product.name }}">
+                                <div>
+                                    <h4>#{{ item.product.code }} - {{ item.product.name }}</h4>
+                                    <p class="product-series"><i class="series-icon">📦</i> {{ item.product.series }} ({{ item.product.series_count }} Adet)</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ item.product.unit_price|currency }} ₺</td>
+                        <td>{{ item.series_price|currency }} ₺</td>
+                        <td>
+                            <form action="{{ url_for('update_cart') }}" method="POST" style="margin: 0;">
+                                <div class="stepper">
+                                    <button type="button" class="stepper-btn" onclick="this.nextElementSibling.stepDown(); this.form.submit()">-</button>
+                                    <input type="number" name="qty_{{ item.product.id }}" value="{{ item.quantity }}" min="0" max="99" class="stepper-input" onchange="this.form.submit()">
+                                    <button type="button" class="stepper-btn" onclick="this.previousElementSibling.stepUp(); this.form.submit()">+</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td><strong>{{ item.item_total|currency }} ₺</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div style="margin-top: 2rem;">
+                <a href="{{ url_for('clear_cart') }}" class="btn btn-outline btn-sm">Sepeti Temizle</a>
+            </div>
+        {% else %}
+            <p>Sepetinizde ürün bulunmamaktadır.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary" style="margin-top: 1rem;">Kataloğa Dön</a>
+        {% endif %}
+    </div>
+
+    {% if cart_items %}
+    <div class="cart-summary glass-panel">
+        <h2>Sipariş Özeti</h2>
+        <div class="summary-details">
+            <div class="summary-row">
+                <span>Toplam Seri:</span>
+                <span>{{ total_series }} Seri</span>
+            </div>
+            <div class="summary-row">
+                <span>Ara Toplam:</span>
+                <span>{{ subtotal|currency }} ₺</span>
+            </div>
+            {% if discount_percent > 0 %}
+            <div class="summary-row discount-row">
+                <span>İndirim (%{{ discount_percent }}):</span>
+                <span>- {{ discount_amount|currency }} ₺</span>
+            </div>
+            {% endif %}
+            <div class="summary-row total-row">
+                <span>Genel Toplam:</span>
+                <span>{{ total|currency }} ₺</span>
+            </div>
+        </div>
+        
+        <div class="checkout-actions" style="margin-top: 2rem;">
+            <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-block btn-lg" style="background: var(--gold); color: black;">Siparişi Tamamla</a>
+        </div>
+        
+        <div class="discount-info" style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+            <p>ℹ️ 10 seri ve üzeri alımlarda %10 indirim</p>
+            <p>ℹ️ 25 seri ve üzeri alımlarda %20 indirim</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.cart-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+.cart-table th {
+    text-align: left;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--gold);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+.cart-table td {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+.cart-product-info {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+.cart-product-info img {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.cart-product-info h4 {
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+}
+.summary-details {
+    margin-top: 1.5rem;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+.discount-row {
+    color: #4CAF50;
+}
+.total-row {
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gold);
+}
+@media (max-width: 992px) {
+    .cart-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

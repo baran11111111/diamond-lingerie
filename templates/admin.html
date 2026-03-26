@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <h1 class="page-title">Yönetim Paneli</h1>
+    <p>Ürünleri ve bayileri yönetin</p>
+</div>
+
+<div class="admin-grid">
+    <div class="admin-section glass-panel">
+        <h2>Yeni Ürün Ekle</h2>
+        <form method="POST" action="{{ url_for('admin') }}" class="admin-form" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="add_product">
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Ürün Kodu</label>
+                    <input type="text" name="code" required placeholder="Örn: 2601">
+                </div>
+                <div class="form-group half">
+                    <label>Ürün Adı</label>
+                    <input type="text" name="name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Kategori</label>
+                    <select name="category" required class="form-select">
+                        <option value="SEDUCTION FANTASY">SEDUCTION FANTASY</option>
+                        <option value="COLLECTION">COLLECTION</option>
+                        <option value="GECEM">GECEM</option>
+                        <option value="DIAMOND">DIAMOND</option>
+                    </select>
+                </div>
+                <div class="form-group half">
+                    <label>Seri İçeriği Bedenleri</label>
+                    <input type="text" name="series" required placeholder="Örn: S-M-L-XL">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Birim Fiyat (₺)</label>
+                    <input type="number" step="0.01" name="unit_price" required>
+                </div>
+                <div class="form-group half">
+                    <label>Seri İçi Adet</label>
+                    <input type="number" name="series_count" required placeholder="Örn: 4">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Ürün Açıklaması</label>
+                <textarea name="description" rows="3" required placeholder="Ürün özelliklerini giriniz..." style="width: 100%; padding: 1.2rem; background: rgba(0, 0, 0, 0.5); border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); color: #fff; font-family: var(--primary-font);"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Ürün Görselleri (Çoklu Seçim Yapabilirsiniz)</label>
+                <input type="file" name="images[]" accept="image/*" multiple required>
+            </div>
+            <button type="submit" class="btn btn-primary">Ürün Ekle</button>
+        </form>
+    </div>
+
+    <div class="admin-section glass-panel">
+        <h2>Yeni Bayi Hesabı Oluştur</h2>
+        <form method="POST" action="{{ url_for('admin') }}" class="admin-form">
+            <input type="hidden" name="action" value="add_user">
+            <div class="form-group">
+                <label>Kullanıcı Adı</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-outline">Hesap Oluştur</button>
+        </form>
+    </div>
+</div>
+
+<div class="admin-lists">
+    <div class="admin-list glass-panel" style="flex: 2;">
+        <h3>Gelen Siparişler</h3>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 1px solid rgba(212,175,55,0.3); color: var(--gold);">
+                        <th style="padding: 1rem 0.5rem;">Sipariş NO</th>
+                        <th style="padding: 1rem 0.5rem;">Bayi</th>
+                        <th style="padding: 1rem 0.5rem;">Tutar</th>
+                        <th style="padding: 1rem 0.5rem;">Yöntem</th>
+                        <th style="padding: 1rem 0.5rem;">Durum</th>
+                        <th style="padding: 1rem 0.5rem;">Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for o in orders %}
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 1rem 0.5rem;">#{{ o.id }}</td>
+                        <td style="padding: 1rem 0.5rem; font-weight: bold;">{{ o.username }}</td>
+                        <td style="padding: 1rem 0.5rem; color: var(--gold);">{{ o.total_price|currency }} ₺</td>
+                        <td style="padding: 1rem 0.5rem;">{{ o.payment_method }}</td>
+                        <td style="padding: 1rem 0.5rem;"><span style="background: rgba(46, 204, 113, 0.2); color: #2ecc71; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">{{ o.status }}</span></td>
+                        <td style="padding: 1rem 0.5rem; font-size: 0.85rem; color: #888;">{{ o.created_at[:16] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="padding: 2rem; text-align: center; color: #888;">Henüz hiç sipariş yok.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="admin-lists" style="margin-top: 2rem;">
+    <div class="admin-list glass-panel">
+        <h3>Mevcut Ürünler</h3>
+        <ul style="max-height: 400px; overflow-y: auto;">
+            {% for p in products %}
+            <li style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem;">
+                <div>
+                    <strong>#{{ p.code }}</strong> {{ p.name }} <br>
+                    <span style="font-size: 0.8em; color: var(--gold);">Seri Toplamı: {{ (p.unit_price * p.series_count)|currency }} ₺</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <a href="{{ url_for('edit_product', id=p.id) }}" class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; background: var(--gold); border: none; color: black;">Düzenle</a>
+                    <form action="{{ url_for('delete_product', id=p.id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Bu ürünü silmek istediğinize emin misiniz?');">
+                        <button type="submit" class="btn" style="background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.5); padding: 0.4rem 0.8rem; font-size: 0.85rem;">Sil</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="admin-list glass-panel">
+        <h3>Bayi Hesapları</h3>
+        <ul>
+            {% for u in users %}
+            <li>{{ u.username }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

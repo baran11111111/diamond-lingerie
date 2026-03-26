@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-gallery glass-panel">
+        <div class="main-image">
+            <img src="{% if product.image_url.startswith('http') %}{{ product.image_url }}{% else %}{{ url_for('static', filename=product.image_url) }}{% endif %}" alt="{{ product.name }}" id="featured-image">
+        </div>
+        <div class="thumbnails">
+            <img src="{% if product.image_url.startswith('http') %}{{ product.image_url }}{% else %}{{ url_for('static', filename=product.image_url) }}{% endif %}" alt="Thumb" class="thumb active" onclick="document.getElementById('featured-image').src=this.src; updateActiveThumb(this);">
+            {% for img in gallery %}
+                <img src="{% if img.image_url.startswith('http') %}{{ img.image_url }}{% else %}{{ url_for('static', filename=img.image_url) }}{% endif %}" alt="Thumb" class="thumb" onclick="document.getElementById('featured-image').src=this.src; updateActiveThumb(this);">
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="detail-info glass-panel">
+        <span class="product-code">#{{ product.code }}</span>
+        <h1 class="detail-title">{{ product.name }}</h1>
+        <p class="product-series"><i class="series-icon">📦</i> {{ product.series }} ({{ product.series_count }} Adet)</p>
+        
+        <div class="detail-pricing">
+            <div class="unit-price">Birim Fiyatı: {{ product.unit_price|currency }} ₺</div>
+            <div class="series-price">{{ (product.unit_price * product.series_count)|currency }} ₺ <span style="font-size: 0.5em; font-weight: normal;">/ SERİ</span></div>
+        </div>
+        
+        <div class="detail-description">
+            <h3>Ürün Açıklaması</h3>
+            <p>{{ product.description }}</p>
+        </div>
+        
+        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="add-cart-form detail-form">
+            <div class="stepper detail-stepper">
+                <button type="button" class="stepper-btn" onclick="this.nextElementSibling.stepDown()">-</button>
+                <input type="number" name="quantity" value="1" min="1" max="99" class="stepper-input">
+                <button type="button" class="stepper-btn" onclick="this.previousElementSibling.stepUp()">+</button>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Seriyi Sepete Ekle</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function updateActiveThumb(selected) {
+    let thumbs = document.querySelectorAll('.thumb');
+    thumbs.forEach(t => t.classList.remove('active'));
+    selected.classList.add('active');
+}
+</script>
+{% endblock %}

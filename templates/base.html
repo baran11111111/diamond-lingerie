@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Lingerie | B2B Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('dashboard') }}" class="text-logo">DIAMOND <span>LINGERIE</span></a>
+        </div>
+        {% if session.get('user_id') %}
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}">Tüm Koleksiyon</a>
+            <a href="{{ url_for('cart') }}">Sepetim 
+                {% if cart_count > 0 %}
+                <span style="background: var(--gold); color: black; padding: 2px 6px; border-radius: 50%; font-weight: bold; font-size: 0.8rem; margin-left: 5px;">{{ cart_count }}</span>
+                {% endif %}
+            </a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('admin') }}">Admin Paneli</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-outline">Çıkış Yap</a>
+        </div>
+        {% endif %}
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">DIAMOND <span>LINGERIE</span></div>
+            <div class="footer-info">
+                <p><strong>Telefon:</strong> 0530 277 2518</p>
+                <p><strong>Adres:</strong> Sururi Mahallesi Tarakçı Cafer Ağa Sokak Molataş Han No:20/21 Istanbul, Turkey 34000</p>
+                <p><strong>Web:</strong> <a href="#">diamondlingerie.tr</a></p>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Diamond Lingerie B2B. Tüm Hakları Saklıdır. Sadece yetkili bayiler içindir.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

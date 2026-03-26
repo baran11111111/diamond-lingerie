@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="login-wrapper">
+    <div class="glass-panel" style="width: 100%; max-width: 650px;">
+        <h2 style="color: var(--gold); margin-bottom: 2rem; text-align: center; font-family: var(--serif-font);">Ürün Düzenle</h2>
+        
+        <form action="{{ url_for('edit_product', id=p.id) }}" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Ürün Kodu</label>
+                    <input type="text" name="code" value="{{ p.code }}" required>
+                </div>
+                <div class="form-group half">
+                    <label>Birim Fiyat (TL)</label>
+                    <input type="number" step="0.01" name="unit_price" value="{{ p.unit_price }}" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Ürün Adı</label>
+                <input type="text" name="name" value="{{ p.name }}" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Seri İçeriği (Örn: S-M-L-XL)</label>
+                    <input type="text" name="series" value="{{ p.series }}" required>
+                </div>
+                <div class="form-group half">
+                    <label>Serideki Adet</label>
+                    <input type="number" name="series_count" value="{{ p.series_count }}" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Yeni Ürün Fotoğrafları (Tüm fotoğrafları değiştirmek isterseniz çoklu seçin)</label>
+                <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                    <img src="{{ url_for('static', filename=p.image_url) }}" style="width: 80px; height: 120px; object-fit: cover; border: 1px solid var(--gold); border-radius: 4px;">
+                    <span style="font-size: 0.85rem; color: #aaa;">Mevcut Ana Fotoğraf</span>
+                </div>
+                <input type="file" name="images[]" accept="image/*" multiple>
+            </div>
+            
+            <div class="form-row" style="margin-top: 3rem;">
+                <div class="half">
+                    <a href="{{ url_for('admin') }}" class="btn btn-outline btn-block">İptal</a>
+                </div>
+                <div class="half">
+                    <button type="submit" class="btn btn-primary btn-block">Değişiklikleri Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
