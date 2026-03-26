@@ -11,7 +11,8 @@
     --gold-dark: #b8962c;
     /* Glassmorphism Variables */
     --glass-bg: rgba(15, 15, 15, 0.4);
-    --glass-border: rgba(212, 175, 55, 0.3); /* Thin gold border */
+    --glass-border: rgba(212, 175, 55, 0.3);
+    /* Thin gold border */
     /* Gradients */
     --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
     /* Typography */
@@ -40,9 +41,17 @@ body {
 }
 
 @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 a {
@@ -61,16 +70,23 @@ a:hover {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
-    border-radius: 1px; /* Sharp, fashion-editorial edges or slight curve */
-    padding: 3rem; /* Increased breathing room */
+    border-radius: 1px;
+    /* Sharp, fashion-editorial edges or slight curve */
+    padding: 3rem;
+    /* Increased breathing room */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* Typography Enhancements */
-h1, h2, h3, h4, .logo {
+h1,
+h2,
+h3,
+h4,
+.logo {
     font-family: var(--serif-font);
-    font-weight: 400; /* Sophisticated thin serif */
+    font-weight: 400;
+    /* Sophisticated thin serif */
     letter-spacing: 1px;
 }
 
@@ -148,7 +164,8 @@ h1, h2, h3, h4, .logo {
 .btn {
     display: inline-block;
     padding: 1rem 2.5rem;
-    border-radius: 0; /* Fashion brutalist/luxury square edges */
+    border-radius: 0;
+    /* Fashion brutalist/luxury square edges */
     font-family: var(--primary-font);
     font-weight: 400;
     text-transform: uppercase;
@@ -172,7 +189,8 @@ h1, h2, h3, h4, .logo {
 }
 
 .btn-primary:hover {
-    background-position: right center; /* Flowing gradient effect */
+    background-position: right center;
+    /* Flowing gradient effect */
     color: #000;
     transform: translateY(-2px);
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
@@ -190,9 +208,20 @@ h1, h2, h3, h4, .logo {
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
-.btn-block { display: block; width: 100%; }
-.btn-sm { padding: 0.7rem 1.5rem; font-size: 0.75rem; }
-.btn-lg { padding: 1.2rem 3rem; font-size: 1rem; }
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.btn-sm {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.75rem;
+}
+
+.btn-lg {
+    padding: 1.2rem 3rem;
+    font-size: 1rem;
+}
 
 /* Container */
 .container {
@@ -212,8 +241,14 @@ h1, h2, h3, h4, .logo {
     font-weight: 300;
     letter-spacing: 1px;
 }
-.alert-error { border-left-color: #ff4d4d; }
-.alert-success { border-left-color: #4CAF50; }
+
+.alert-error {
+    border-left-color: #ff4d4d;
+}
+
+.alert-success {
+    border-left-color: #4CAF50;
+}
 
 /* Forms */
 .form-group {
@@ -229,7 +264,11 @@ label {
     letter-spacing: 2px;
 }
 
-input[type="text"], input[type="password"], input[type="number"], input[type="url"], input[type="file"] {
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="file"] {
     width: 100%;
     padding: 1.2rem;
     background: transparent;
@@ -315,14 +354,17 @@ input:focus {
 }
 
 .product-card:hover {
-    transform: scale(1.02); /* slightly grow */
-    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2); /* shadow pop */
+    transform: scale(1.02);
+    /* slightly grow */
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+    /* shadow pop */
     border-color: rgba(212, 175, 55, 0.6);
 }
 
 .product-image-wrapper {
     width: 100%;
-    height: 450px; /* Fixed height for all images to align properly */
+    height: 450px;
+    /* Fixed height for all images to align properly */
     overflow: hidden;
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -331,13 +373,16 @@ input:focus {
 .product-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Keeps image proportions within the fixed height */
+    object-fit: cover;
+    /* Keeps image proportions within the fixed height */
     object-position: top;
-    transition: transform 0.8s ease; /* Smooth zoom-in animation variable */
+    transition: transform 0.8s ease;
+    /* Smooth zoom-in animation variable */
 }
 
 .product-card:hover .product-image {
-    transform: scale(1.08); /* Image zoom in on hover */
+    transform: scale(1.08);
+    /* Image zoom in on hover */
 }
 
 .product-info {
@@ -423,7 +468,8 @@ input:focus {
     margin-bottom: 4rem;
 }
 
-.admin-section h2, .admin-lists h3 {
+.admin-section h2,
+.admin-lists h3 {
     color: var(--gold);
     margin-bottom: 2.5rem;
     font-size: 1.8rem;
@@ -469,7 +515,8 @@ input:focus {
     width: 150px;
     height: 220px;
     object-fit: cover;
-    object-position: top; /* ensures head/neck is seen for fashion */
+    object-position: top;
+    /* ensures head/neck is seen for fashion */
 }
 
 .checkout-info {
@@ -534,7 +581,8 @@ input:focus {
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(212, 175, 55, 0.1);
     padding: 4rem 5% 2rem;
-    margin-top: auto; /* pushes footer to bottom */
+    margin-top: auto;
+    /* pushes footer to bottom */
 }
 
 .footer-content {
@@ -590,7 +638,7 @@ input:focus {
     align-items: center;
     border: 1px solid var(--gold);
     border-radius: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .stepper-btn {
@@ -625,8 +673,8 @@ input:focus {
 
 .stepper-input::-webkit-outer-spin-button,
 .stepper-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .add-cart-form {
@@ -685,7 +733,8 @@ input:focus {
     transition: all 0.3s ease;
 }
 
-.thumb:hover, .thumb.active {
+.thumb:hover,
+.thumb.active {
     opacity: 1;
     border-color: var(--gold);
 }
@@ -703,8 +752,8 @@ input:focus {
 .detail-pricing {
     margin: 2rem 0;
     padding: 2rem 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .detail-pricing .unit-price {
@@ -738,24 +787,93 @@ input:focus {
     margin-right: 1.5rem;
 }
 
-.detail-stepper .stepper-btn, .detail-stepper .stepper-input {
+.detail-stepper .stepper-btn,
+.detail-stepper .stepper-input {
     height: 50px;
     width: 50px;
     font-size: 1.2rem;
 }
-.detail-stepper .stepper-input { width: 70px; }
+
+.detail-stepper .stepper-input {
+    width: 70px;
+}
 
 /* Responsive */
 @media (max-width: 992px) {
-    .admin-grid, .admin-lists, .checkout-wrapper {
+
+    .admin-grid,
+    .admin-lists,
+    .checkout-wrapper {
         grid-template-columns: 1fr;
     }
+
     .product-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
-    
+
     .nav-links a {
         display: block;
         margin: 1.5rem 0;
+    }
+}
+
+/* --- SADECE TELEFONLAR İÇİN DÜZENLEME (PC'Yİ BOZMAZ) --- */
+@media screen and (max-width: 768px) {
+
+    /* 1. Detay Sayfası Ayarı: Resim ve Bilgiyi Alt Alta Getir */
+    .detail-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        padding: 1rem !important;
+    }
+
+    /* 2. Resim Kutusunu ve Bilgi Kutusunu Genişlet */
+    .detail-gallery,
+    .detail-info {
+        width: 100% !important;
+        padding: 1.5rem !important;
+    }
+
+    /* 3. Ana Resmi Telefona Sığdır */
+    .main-image {
+        height: 400px !important;
+        /* Telefon için boyunu biraz kısalttık ki ekranı kaplamasın */
+        margin-bottom: 1rem !important;
+    }
+
+    .main-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        /* Resmin kesilmesini engeller, tam sığdırır */
+    }
+
+    /* 4. Başlık ve Fiyatları Telefon İçin Küçült */
+    .detail-title {
+        font-size: 2rem !important;
+    }
+
+    .detail-pricing .series-price {
+        font-size: 1.8rem !important;
+    }
+
+    /* 5. Sepete Ekle Butonunu Düzenle */
+    .add-cart-form {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .detail-stepper {
+        margin-right: 0 !important;
+        margin-bottom: 1rem !important;
+        justify-content: center !important;
+    }
+
+    /* 6. Sağa Sola Kaymayı Engelle */
+    body,
+    html {
+        overflow-x: hidden !important;
+        width: 100% !important;
     }
 }
