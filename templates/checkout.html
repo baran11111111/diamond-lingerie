@@ -15,17 +15,21 @@
                 <input type="hidden" name="payment_method" value="Havale/EFT">
                 <div
                     style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-left: 3px solid var(--gold); margin-bottom: 2rem; border-radius: 4px;">
-                    <h4 style="color: var(--gold); margin-bottom: 1rem; font-size: 1.2rem;">Güncel Banka Bilgilerimiz
+                    <h4 style="color: var(--gold); margin-bottom: 1rem; font-size: 1.2rem;">Kurumsal Banka Bilgilerimiz
                     </h4>
-                    <p style="margin-bottom: 0.5rem;"><strong>Banka:</strong> AKBANK </p>
-                    <p style="margin-bottom: 0.5rem;"><strong>Alıcı:</strong> ÇAĞATAY UYGUN</p>
-                    <p style="margin-bottom: 1rem; font-size: 1.1rem; letter-spacing: 1px; color: #fff;">
-                        <strong>IBAN:</strong> TR58 0004 6003 3488 8000 2369 24</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Banka:</strong> GARANTİ BBVA (Bahçekapı Şubesi)</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Alıcı:</strong> UYGUN GLB MAĞAZACILIK ANONİM ŞİRKETİ</p>
+                    <p
+                        style="margin-bottom: 1rem; font-size: 1.1rem; letter-spacing: 1px; color: #fff; word-break: break-all;">
+                        <strong>IBAN:</strong> TR20 0006 2000 0860 0006 2908 66
+                    </p>
 
                     <div
                         style="background: rgba(212, 175, 55, 0.1); padding: 1rem; border-radius: 4px; border: 1px solid rgba(212, 175, 55, 0.3);">
-                        <p style="color: var(--gold); font-size: 0.95rem;">⚠️ Lütfen açıklama kısmına <strong>Adınızı
-                                veya Sipariş Numaranızı</strong> yazınız. Ödeme sonrası siparişiniz onaylanacaktır.</p>
+                        <p style="color: var(--gold); font-size: 0.95rem;">⚠️ Lütfen açıklama kısmına <strong>Şirket
+                                Adınızı</strong> veya <strong>Sipariş Numaranızı</strong> yazınız. Ödemeniz
+                            onaylandıktan sonra sevkiyat süreci başlayacaktır.</p>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Siparişi Onayla ve Tamamla ({{ total|currency }}
@@ -37,10 +41,10 @@
             <div style="text-align: center; padding: 2rem;">
                 <i style="font-size: 4rem; color: #25D366; margin-bottom: 1.5rem; display: block;">💬</i>
                 <p style="margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6; color: #ddd;">
-                    Siparişinizi doğrudan WhatsApp üzerinden bize iletebilirsiniz. Temsilcimiz ödeme ve kargo sürecinde
-                    size yardımcı olacaktır.
+                    Sipariş detaylarınızı sistemimize kaydedip, ödeme ve teslimat süreci için WhatsApp hattımız
+                    üzerinden müşteri temsilcimizle görüşebilirsiniz.
                 </p>
-                <a href="https://wa.me/905302772518?text=Merhaba, {{ total|currency }} TL tutarındaki siparişim hakkında bilgi almak istiyorum."
+                <a href="https://wa.me/905302772518?text=Merhaba, {{ total|currency }} TL tutarındaki toptan siparişim hakkında bilgi almak istiyorum."
                     target="_blank" class="btn btn-primary btn-block btn-lg"
                     style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; text-decoration: none; display: block;">
                     WhatsApp ile Sipariş Ver
@@ -59,6 +63,13 @@
                 <span>Ara Toplam:</span>
                 <span>{{ subtotal|currency }} ₺</span>
             </div>
+            {% if discount_amount > 0 %}
+            <div class="summary-row"
+                style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #4CAF50;">
+                <span>Uygulanan İndirim:</span>
+                <span>- {{ discount_amount|currency }} ₺</span>
+            </div>
+            {% endif %}
             <div class="summary-row total-row"
                 style="display: flex; justify-content: space-between; border-top:1px solid rgba(212,175,55,0.3); padding-top:1.5rem; margin-top:1.5rem; font-size:1.5rem; font-weight: 600;">
                 <span>Genel Toplam:</span>
@@ -69,7 +80,6 @@
 </div>
 
 <style>
-    /* ... (Eski stil kodların aynen kalıyor) ... */
     .checkout-wrapper {
         display: grid;
         grid-template-columns: 2fr 1fr;
