@@ -918,3 +918,53 @@ input:focus {
         min-width: 30px;
     }
 }
+
+/* ============================================================
+   MOBİL MENÜ AÇILMA VE LİNK GÖRÜNÜRLÜK FİX
+   ============================================================ */
+@media screen and (max-width: 768px) {
+
+    /* 1. Menü linklerinin panelini hazırla (Başta gizli) */
+    .nav-links {
+        display: none;
+        /* Varsayılan olarak kapalı kalsın */
+        position: fixed;
+        top: 60px;
+        /* Navbar'ın hemen altından başlasın */
+        left: 0;
+        width: 100%;
+        height: auto;
+        background: rgba(5, 5, 5, 0.98);
+        /* Siyah cam efekti */
+        flex-direction: column !important;
+        padding: 2rem 0;
+        text-align: center;
+        border-bottom: 2px solid var(--gold);
+        z-index: 9999;
+    }
+
+    /* 2. KRİTİK KISIM: Hamburger'e basınca bu sınıf devreye girecek */
+    .nav-links.active {
+        display: flex !important;
+        /* Menüyü görünür yap */
+    }
+
+    /* 3. Menü içindeki linklerin mobildeki duruşu */
+    .nav-links a {
+        display: block !important;
+        margin: 1rem 0 !important;
+        font-size: 1.2rem !important;
+        color: #fff !important;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    /* 4. Sepet sayısını gösteren altın baloncuk */
+    .nav-links a span {
+        background: var(--gold) !important;
+        color: #000 !important;
+        padding: 2px 8px !important;
+        border-radius: 50% !important;
+        margin-left: 10px;
+    }
+}
